@@ -5,25 +5,19 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 class HttpStatusCheckerTest {
-    private HttpStatusChecker statusChecker;
-
-    @BeforeEach
-    void beforeEach() {
-        statusChecker = new HttpStatusChecker();
-    }
 
     @Test
     void testThatStatusCheckerFindCode200() {
         // When
         String actual = "";
         try {
-            actual = statusChecker.getStatusImage(200);
+            actual = HttpStatusChecker.getStatusImage(200);
         } catch (Exception ex) {
             actual = "exception";
         }
 
         // Then
-        String expected = "https://http.cat/200";
+        String expected = "https://http.cat/200.jpg";
         Assertions.assertEquals(expected, actual);
     }
 
@@ -32,27 +26,27 @@ class HttpStatusCheckerTest {
         // When
         String actual = "";
         try {
-            actual = statusChecker.getStatusImage(404);
+            actual = HttpStatusChecker.getStatusImage(404);
         } catch (Exception ex) {
             actual = "exception";
         }
 
         // Then
-        String expected = "https://http.cat/404";
+        String expected = "https://http.cat/404.jpg";
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
     void testThatStatusCheckerThrowsIOException() {
         Assertions.assertThrows(IOException.class, () -> {
-            statusChecker.getStatusImage(555);
+            HttpStatusChecker.getStatusImage(555);
         });
     }
 
     @Test
     void testThatStatusCheckerThrowsIllegalArgumentException() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            statusChecker.getStatusImage(10);
+            HttpStatusChecker.getStatusImage(10);
         });
     }
 }
