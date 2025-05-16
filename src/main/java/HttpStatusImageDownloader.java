@@ -7,6 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class HttpStatusImageDownloader {
+
+    private HttpStatusImageDownloader() {
+    }
+
     public static void downloadStatusImage(int code) throws IOException, InterruptedException, IllegalArgumentException {
 
         String url = HttpStatusChecker.getStatusImage(code);
@@ -21,7 +25,7 @@ public class HttpStatusImageDownloader {
 
             HttpResponse<Path> response = httpClient.send(request, HttpResponse.BodyHandlers.ofFile(targetPath));
             if (response.statusCode() != 200) {
-                throw new IOException("Image with status code " + code + " can't be downloaded");
+                throw new IOException("Not found");
             }
         }
     }
