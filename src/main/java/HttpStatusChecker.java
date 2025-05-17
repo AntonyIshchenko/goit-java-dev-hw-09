@@ -7,14 +7,16 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 public class HttpStatusChecker {
+    public static final int MIN_HTTP_STATUS_CODE = 100;
+    public static final int MAX_HTTP_STATUS_CODE = 599;
 
     private HttpStatusChecker() {
     }
 
     public static String getStatusImage(int code) throws IOException, InterruptedException, IllegalArgumentException {
 
-        if (code < 100 || code > 599) {
-            throw new IllegalArgumentException("Code must be between 100 and 599");
+        if (code < MIN_HTTP_STATUS_CODE || code > MAX_HTTP_STATUS_CODE) {
+            throw new IllegalArgumentException("Code must be between " + MIN_HTTP_STATUS_CODE + " and " + MAX_HTTP_STATUS_CODE);
         }
 
         String url = "https://http.cat/" + code;
