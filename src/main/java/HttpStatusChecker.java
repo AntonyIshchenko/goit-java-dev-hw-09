@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,7 +26,7 @@ public class HttpStatusChecker {
         try (HttpClient httpClient = HttpClient.newHttpClient()) {
             HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
 
-            if (response.statusCode() == 200) {
+            if (response.statusCode() == HttpURLConnection.HTTP_OK) {
                 String extension = "";
                 Optional<String> contentType = response.headers().firstValue("Content-Type");
                 if (contentType.isPresent()) {
