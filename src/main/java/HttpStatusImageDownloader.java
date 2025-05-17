@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -24,7 +25,7 @@ public class HttpStatusImageDownloader {
             Path targetPath = Paths.get(fileName);
 
             HttpResponse<Path> response = httpClient.send(request, HttpResponse.BodyHandlers.ofFile(targetPath));
-            if (response.statusCode() != 200) {
+            if (response.statusCode() != HttpURLConnection.HTTP_OK) {
                 throw new IOException("Not found");
             }
         }
